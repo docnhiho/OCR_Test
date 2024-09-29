@@ -1,0 +1,61 @@
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    /* Giảm kích thước của popup */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.popup-content {
+    text-align: center;
+}
+
+.popup-content img {
+    width: 100%;
+    /* Đảm bảo ảnh hiển thị nhỏ gọn */
+    max-width: 250px;
+    /* Giới hạn kích thước tối đa của ảnh */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.popup-content button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-content button:hover {
+    background-color: #0056b3;
+}
+
+.video-container {
+    position: relative;
+    height: 700px;
+    width: 800px;
+}
+
+
+
+.frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 500px;
+    border: 2px dashed red;
+    /* Đường viền cho khung */
+    pointer-events: none;
+    /* Để không cản trở sự tương tác với video */
+    transform: translate(-50%, -50%);
+}
