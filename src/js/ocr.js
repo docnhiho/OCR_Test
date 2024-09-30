@@ -7,12 +7,12 @@ const OcrResult = ({ imageBase64 }) => {
 
 
     const callApi = async () => {
-        const url = 'https://seminar.lightvision.ai/moldova/ocr';
+        const url = '/moldova/ocr';
 
         const octTest = {
             country: 'MDA',
-            img1: imageBase64.front,
-            img2: imageBase64.bacl,
+            img1: imageBase64.frontID,
+            img2: imageBase64.backID
         };
 
         try {

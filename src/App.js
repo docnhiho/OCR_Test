@@ -8,9 +8,9 @@ import OcrResult from './js/ocr';
 function App() {
   const { videoRef, hasPermission, takeSnapshot } = useWebcam();
   const [showPopup, setShowPopup] = useState(false);
-  const [capturedImages, setCapturedImages] = useState({ front: null, back: null }); // Lưu mặt trước và mặt sau của CCCD
+  const [capturedImages, setCapturedImages] = useState({ frontID: null, backID: null }); // Lưu mặt trước và mặt sau của CCCD
   const [isFront, setIsFront] = useState(true); // Biến để xác định đang chụp mặt trước hay mặt sau
-  const [imageBase64, setImageBase64] = useState({ front: "", back: "" }); // Lưu mã Base64 cho cả hai ảnh
+  const [imageBase64, setImageBase64] = useState({ frontID: "", backID: "" }); // Lưu mã Base64 cho cả hai ảnh
 
   const takePicture = () => {
     const image = takeSnapshot();
@@ -19,12 +19,12 @@ function App() {
 
 
       if (isFront) {
-        setCapturedImages(prevState => ({ ...prevState, front: image }));
-        setImageBase64(prevState => ({ ...prevState, front: base64String }));
+        setCapturedImages(prevState => ({ ...prevState, frontID: image }));
+        setImageBase64(prevState => ({ ...prevState, frontID: base64String }));
         setIsFront(false); 
       } else {
-        setCapturedImages(prevState => ({ ...prevState, back: image }));
-        setImageBase64(prevState => ({ ...prevState, back: base64String }));
+        setCapturedImages(prevState => ({ ...prevState, backID: image }));
+        setImageBase64(prevState => ({ ...prevState, backID: base64String }));
         setShowPopup(true); 
       }
 
@@ -41,7 +41,7 @@ function App() {
 
   const closePopup = () => {
     setShowPopup(false);
-    setCapturedImages({ front: null, back: null });
+    setCapturedImages({ frontID: null, backID: null });
     setIsFront(true);
   };
 
@@ -73,9 +73,9 @@ function App() {
             <h2>Captured Images</h2>
             <div>
               <h3>Front</h3>
-              <img src={capturedImages.front} alt="Front of ID card" />
+              <img src={capturedImages.frontID} alt="Front of ID card" />
               <h3>Back</h3>
-              <img src={capturedImages.back} alt="Back of ID card" />
+              <img src={capturedImages.backID} alt="Back of ID card" />
             </div>
             <button onClick={closePopup}>Close</button>
           </div>
