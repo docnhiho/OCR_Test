@@ -1,5 +1,5 @@
 {
-  "proxy": "http://seminar.lightvision.ai",
+  "proxy": "https://seminar.lightvision.ai",
   "name": "ocr_test",
   "version": "0.1.0",
   "private": true,
