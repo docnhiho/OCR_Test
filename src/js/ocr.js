@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-
-const OcrResult = ({ imageBase64 }) => {
-    // console.log("ORC front Images: " + imageBase64.front)
-    // console.log("ORC back Images: " + imageBase64.back)
-    const [responseData, setResponseData] = useState(null);
-
-
+import LoadingEffect from "./common/loadingEffect";
+const OcrResult = ({ imageBase64, closePopup, onOcrComplete }) => {
+    const [loading, setLoading] = useState(true);
     const callApi = async () => {
         const url = '/moldova/ocr';
 
-        const octTest = {
+        const ocrTest = {
             country: 'MDA',
             img1: imageBase64.frontID,
             img2: imageBase64.backID
@@ -17,8 +13,6 @@ const OcrResult = ({ imageBase64 }) => {
 
         try {
             const response = await fetch(url, {
-                mode: 'no-cors',
-
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,13 +20,16 @@ const OcrResult = ({ imageBase64 }) => {
                     "Access-Control-Request-Headers": "*",
                     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
                 },
-
-                body: JSON.stringify(octTest), 
+                body: JSON.stringify(ocrTest),
             });
 
             const data = await response.json();
-            setResponseData(data);
-            console.log('API Response:', data);
+            const result = JSON.stringify(data, null, 2);
+
+            console.log(result);
+            onOcrComplete(result);
+            setLoading(false);
+            closePopup();
         } catch (error) {
             console.error('Error calling API:', error);
         }
@@ -40,9 +37,8 @@ const OcrResult = ({ imageBase64 }) => {
 
     return (
         <div>
-            <h1>Call OCR API</h1>
-            <button onClick={callApi}>Call API</button>
-            {responseData && <pre>{JSON.stringify(responseData, null, 2)}</pre>}
+            {loading && (<LoadingEffect></LoadingEffect>)}
+            <button className="btn btn-mainColor" onClick={callApi}>submit</button>
         </div>
     );
 };
